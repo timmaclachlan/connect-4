@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-import '../Game.css';
+import "../Game.css";
 
 import GameCircle from "./GameCircle";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const NO_CIRCLES = 16;
 
@@ -10,9 +12,15 @@ const NO_PLAYER = 0;
 const PLAYER_1 = 1;
 const PLAYER_2 = 2;
 
-const GameBoard = () => {    
+const GAME_STATE_IDLE = 0;
+const GAME_STATE_PLAYING = 1;
+const GAME_STATE_WIN = 2;
+const GAME_STATE_DRAW = 3;
+
+const GameBoard = () => {
     const [gameBoard, setGameBoard] = useState(Array(16).fill(NO_PLAYER));
     const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+    const [gameState, setGameState] = useState(GAME_STATE_PLAYING);
 
     console.log(gameBoard);
 
@@ -23,33 +31,42 @@ const GameBoard = () => {
             circles.push(renderCircle(i));
         }
         return circles;
-    }
+    };
 
     const circleClicked = (id) => {
-        console.log('circle clicked:' + id);
+        console.log("circle clicked:" + id);
 
-        setGameBoard(prev => {
+        setGameBoard((prev) => {
             return prev.map((circle, pos) => {
                 if (pos === id) return currentPlayer;
                 return circle;
-            })
-        })
+            });
+        });
 
         setCurrentPlayer(currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1);
 
         console.log(gameBoard);
         console.log(currentPlayer);
-    }
+    };
 
-    const renderCircle = id => {
-        return <GameCircle key={id} id={id} className={`player_${gameBoard[id]}`} onCircleClicked={circleClicked} />
-    }
+    const renderCircle = (id) => {
+        return (
+            <GameCircle
+                key={id}
+                id={id}
+                className={`player_${gameBoard[id]}`}
+                onCircleClicked={circleClicked}
+            />
+        );
+    };
 
     return (
-        <div className="gameBoard" >
-           {initBoard()}          
-        </div>
-    )
-}
+        <>
+            <Header gameState={gameState} player={currentPlayer} />
+            <div className="gameBoard">{initBoard()}</div>
+            <Footer />
+        </>
+    );
+};
 
 export default GameBoard;
