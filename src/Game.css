@@ -75,8 +75,8 @@ body {
     margin-left: -250px;
     top: 20%;
     background-color: bisque;
-    border-radius: 8%;
     border: 8px solid burlywood;
+    border-radius: 8%;
     -webkit-box-shadow: 7px 5px 15px 3px rgba(0, 0, 0, 0.9);
     box-shadow: 7px 5px 15px 3px rgba(0, 0, 0, 0.9);
 }
