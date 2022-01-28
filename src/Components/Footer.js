@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Footer = () => {
+const Footer = ({ onSuggestClick, disabled }) => {
   return (
     <div className="panel footer">
       <button>New Game</button>
+      <button onClick={onSuggestClick}>Suggest</button>
     </div>
   );
 };
