@@ -24,7 +24,11 @@ const GameBoard = () => {
     const [gameState, setGameState] = useState(GAME_STATE_PLAYING);
     const [winPlayer, setWinPlayer] = useState(NO_PLAYER);
 
-    console.log(gameBoard);
+
+    const initGame = () => {
+        setCurrentPlayer(PLAYER_1);
+        setGameBoard(Array(16).fill(NO_PLAYER));
+    }
 
     const initBoard = () => {
         const circles = [];
@@ -78,11 +82,15 @@ const GameBoard = () => {
         circleClicked(getComputerMove(gameBoard));
     }
 
+    const onNewGameClick = () => {
+        initGame();
+    }
+
     return (
         <>
             <Header gameState={gameState} currentPlayer={currentPlayer} winPlayer={winPlayer} />
             <div className="gameBoard">{initBoard()}</div>
-            <Footer onSuggestClick={onSuggestClick} disabled={gameState !== GAME_STATE_PLAYING}/>
+            <Footer onSuggestClick={onSuggestClick} onNewGameClick={onNewGameClick} disabled={gameState !== GAME_STATE_PLAYING}/>
         </>
     );
 };
