@@ -28,6 +28,7 @@ const GameBoard = () => {
     const initGame = () => {
         setCurrentPlayer(PLAYER_1);
         setGameBoard(Array(16).fill(NO_PLAYER));
+        setGameState(GAME_STATE_PLAYING);
     }
 
     const initBoard = () => {
@@ -90,7 +91,7 @@ const GameBoard = () => {
         <>
             <Header gameState={gameState} currentPlayer={currentPlayer} winPlayer={winPlayer} />
             <div className="gameBoard">{initBoard()}</div>
-            <Footer onSuggestClick={onSuggestClick} onNewGameClick={onNewGameClick} disabled={gameState !== GAME_STATE_PLAYING}/>
+            <Footer onSuggestClick={onSuggestClick} onNewGameClick={onNewGameClick} gameState={gameState}/>
         </>
     );
 };
